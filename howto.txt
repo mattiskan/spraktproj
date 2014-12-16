@@ -1,0 +1,2 @@
+# sätter ihop reglerna med generade regler och kör grammar.py
+cp rules.cfg grammar.cfg && python parser.py >> grammar.cfg && python grammar.py
