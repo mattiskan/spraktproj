@@ -49,10 +49,17 @@ for cls in ['NN', 'VB', 'DT', 'IN', 'JJ', 'CC']:
     
 
 for cls,words in classified_words.items():
+    if len(words) == 0:
+        continue
     print()
     print(cls[0], "-> ", end="")
+
+    first = True
     for word in words:
-        print("'", word, "' | ", sep="", end="")
+        if not first:
+            print(" | ", end="")
+        first = False
+        print("'", word, "'", sep="", end="")
 
 print("\nEND -> ',' | '.' | '-' | '?' | '!'")
 
