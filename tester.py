@@ -1,12 +1,18 @@
 import nltk
 from relations import *
 from nltk.corpus import reuters
+from nltk.corpus import gutenberg
 
 #test with n sentences from reuters
-def testRelations(n=100):
-	sents = [s for s in reuters.sents()[:n]]
+def testRelations(n=1500):
+	sents = []
+	f = open('testData.txt', 'rU')
+	for line in f:
+		sents.append(nltk.word_tokenize(line))
+	#sents = [s for s in gutenberg.sents('carroll-alice.txt')[:n]]
 	results = getRelations(sents)
-	for i, rel in enumerate(results[:5]):
-		print rel
+	print()
 
+	for i, rel in enumerate(results):
+		print rel
 testRelations()

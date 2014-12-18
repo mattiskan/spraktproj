@@ -1,0 +1,3 @@
+Ben is Peter.
+Peter loves Mary.
+Mary owns Jonathan.
