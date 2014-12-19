@@ -14,7 +14,6 @@ cp = nltk.RegexpParser(grammar,loop=2)
 
 def getRelations(sentences):
     results = []
-
     tagged_sents = sentences
     #for s in sentences:
     #    tagged_sents.append(nltk.pos_tag(s))
@@ -26,4 +25,15 @@ def getRelations(sentences):
                 R = subtree.leaves()[1:-1]
                 B = [subtree.leaves()[-1]]
                 results.append(Triple(A,R,B))
+    return results
+
+def parseFile(fileName, n=1500):
+    sents = []
+    f = open(fileName, 'rU')
+    for line in f:
+        sents.append(nltk.word_tokenize(line))
+    #sents = [s for s in gutenberg.sents('carroll-alice.txt')[:n]]
+    results = getRelations(sents)
+    
+
     return results
