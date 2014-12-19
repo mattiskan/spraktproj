@@ -72,21 +72,6 @@ def main():
 
 
 
-def test():
-
-    index = collections.defaultdict(list)
-    for i in range(3):
-        index2 = collections.defaultdict(list)
-        index2['a'].append('1')
-        index2['a'].append('2')
-
-        for k,v in index2.items():
-            index[k].extend(v)
-
-    print(index['a'])
-
-
-
 main()
 
 
