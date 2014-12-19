@@ -5,7 +5,7 @@ from triple import *
 
 grammar = r"""
   NP: {<DT>?<JJ>?<NN.*>+}          # Chunk sequences of DT, JJ, NN
-  VB: {<VB.*>} # Chunk verbs and their arguments
+  VB: {<VB.*>} 
   REL: {<NP><VB><NP>}           # Chunk NP, VP
   """
 
@@ -21,9 +21,10 @@ def getRelations(sentences):
         tree = cp.parse(sent)
         for subtree in tree.subtrees():
             if subtree.label() == 'REL':
-                A = [subtree.leaves()[0]]
-                R = subtree.leaves()[1:-1]
-                B = [subtree.leaves()[-1]]
+                subtrees = list(subtree.subtrees())
+                A = subtrees[1].leaves()
+                R = subtrees[2].leaves()
+                B = subtrees[3].leaves()
                 results.append(Triple(A,R,B,tree))
     return results
 
@@ -36,6 +37,3 @@ def parseFile(fileName, n=1500):
     
 
     return results
-
-def getSynset(word):
-    
