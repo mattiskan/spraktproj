@@ -1,46 +1,64 @@
 #!/usr/bin/python3
 import collections
+import relations
+from tester import testRelations
+from triple import Triple
 
 
-
-def bfs(start, goal, data):
+def bfs(start, goal, triples):
     result = []
-    q = collections.deque([[start]])
+    q = collections.deque()
+    q.append(triples[start])
 
     visited = set()
-
+    
     while len(q) > 0:
         path = q.popleft()
-        curr = path[-1]
+        curr = path[-1].B()
 
         if curr in visited:
             continue
 
-        if(curr == goal):
+        if(path[-1].B() == goal):
             result.append(path)
             continue
 
         visited.add(curr)
         
-        for neighbour in data[curr]:
-            if not neighbour in visited:
+        for neighbour in triples[curr]:
+            if not neighbour.B() in visited:
                 nextp = path + [neighbour]
                 q.append(nextp)
 
-    print("found", result)
     return result
 
-        
-data = {
-    0: {1,6,7},
-    1: {4,7},
-    2: {5},
-    3: {1,2,5},
-    4: {1,3,5,7},
-    5: {3},
-    6: {},
-    7: {3,4,6}
-}
 
-bfs( 0, 5, data)
-bfs( 6, 5, data)
+
+def build_index(triples):
+    index = collections.defaultdict(list)
+
+    for t in triples:
+        index[t.A()].append(t)
+
+    return index
+
+
+
+def main():
+    triples = testRelations()
+    
+    index = build_index(triples)
+
+    results = bfs('Ben', 'Jonathan', index)
+
+    for result in results:
+        for path in result:
+            print(path, "-> ", end="")
+        print()
+
+
+main()
+    
+
+
+

@@ -11,8 +11,7 @@ def testRelations(n=1500):
         sents.append(nltk.word_tokenize(line))
     #sents = [s for s in gutenberg.sents('carroll-alice.txt')[:n]]
     results = getRelations(sents)
-    print()
     
-    for i, rel in enumerate(results):
-        print(rel)
-testRelations()
+
+    return results
+
