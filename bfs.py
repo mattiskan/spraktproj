@@ -6,7 +6,7 @@ from triple import Triple
 
 def bfs(start, goal, triples):
     result = []
-    visited = {}
+    visited = set()
     q = collections.deque()
 
     for word in triples[start]:
@@ -29,7 +29,6 @@ def bfs(start, goal, triples):
             if not neighbour.B() in visited:
                 nextp = path + [neighbour]
                 q.append(nextp)
-        print()
 
     return result
 
@@ -66,10 +65,6 @@ def main():
         for k,v in found.items():
             print(*v, sep="\n")
             index[k].extend(v)
-
-    print("Obama:")
-    for word in index['Obama']:
-        print(word.B(), sep="\n")
 
     results = bfs('Obama', 'GAB', index)
     

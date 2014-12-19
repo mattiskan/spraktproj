@@ -14,9 +14,10 @@ cp = nltk.RegexpParser(grammar,loop=2)
 
 def getRelations(sentences):
     results = []
-    tagged_sents = sentences
-    #for s in sentences:
-    #    tagged_sents.append(nltk.pos_tag(s))
+    tagged_sents =  [ nltk.pos_tag(s) for s in sentences ]
+    tagged_sents = filter( lambda s: len(s) > 0, tagged_sents )
+
+
     for sent in tagged_sents:
         tree = cp.parse(sent)
         for subtree in tree.subtrees():
@@ -37,5 +38,4 @@ def parseFile(fileName, n=1500):
 
     return results
 
-def getSynset(word):
     
