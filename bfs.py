@@ -1,15 +1,15 @@
 #!/usr/bin/python3
-import collections
-import relations
+from build_index import get_index
 from triple import Triple
 
 
 def bfs(start, goal, triples):
     result = []
-    q = collections.deque()
-    q.append(triples[start])
-
     visited = set()
+    q = collections.deque()
+
+    for word in triples[start]:
+        q.append( [word] )
     
     while len(q) > 0:
         path = q.popleft()
@@ -32,33 +32,26 @@ def bfs(start, goal, triples):
     return result
 
 
+def print_results(results):
+    print()
+    for result in results:
+        for path in result:
+            print(path.A(), "->", path.B(), end="")
+            if path != result[-1]: print("  -->  ", end="")
+        print()
 
-def build_index(triples):
-    index = collections.defaultdict(list)
-
-    for t in triples:
-        index[t.A()].append(t)
-
-    return index
-
+    print("done")
 
 
 def main():
-    triples = relations.parseFile("testData.txt")
+    index = get_index("index.data")
+
+    results = bfs('Obama', 'GAB', index)
     
-    index = build_index(triples)
+    print_results(results)
 
-    results = bfs('Ben', 'Jonathan', index)
-
-    for result in results:
-        for path in result:
-            print(path, end="")
-            if path != result[-1]: print(" -> ", end="")
-        print()
 
 
 main()
-    
-
 
 
