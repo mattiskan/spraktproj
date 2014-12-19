@@ -4,7 +4,7 @@ from triple import *
 #grammar = "Relation: {<N.*><V.*><NNP>}"
 
 grammar = r"""
-  NP: {<DT>?<JJ>?<NN.*>+}          # Chunk sequences of DT, JJ, NN
+  NP: {<NN.*>+}          # Chunk sequences of DT, JJ, NN
   VB: {<VB.*>} 
   REL: {<NP><VB><NP>}           # Chunk NP, VP
   """
@@ -16,7 +16,6 @@ def getRelations(sentences):
     results = []
     tagged_sents =  [ nltk.pos_tag(s) for s in sentences ]
     tagged_sents = filter( lambda s: len(s) > 0, tagged_sents )
-
 
     for sent in tagged_sents:
         tree = cp.parse(sent)

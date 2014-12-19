@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from build_index import get_index
 from triple import Triple
+from nltk.probability import FreqDist
 
 
 def bfs(start, goal, triples):
@@ -49,7 +50,8 @@ def main():
     results = bfs('Obama', 'GAB', index)
     
     print_results(results)
-
+    fdistAB = FreqDist([rel.A() for rel in results] + [rel.B() for rel in results])
+    fdistAB.plot(10)
 
 
 main()
