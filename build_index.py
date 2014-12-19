@@ -1,28 +1,38 @@
 import collections
 import relations
+import pickle
+import os.path
 
 files = [ "testData.txt", "obama.txt", "budget.txt"]
 
+def get_index(filename):
+    if os.path.isfile(filename):
+        return read_index(filename)
 
-def build_index(triples):
-    index = collections.defaultdict(list)
-
-    for t in triples:
-        index[t.A()].append(t)
-
+    index = build_index()
+    write_index(index, filename)
     return index
 
 
 
-def get_index(filename):
+def build_index():
     index = collections.defaultdict(list)
 
     for file in files:
         triples = relations.parseFile(file)
-        found = build_index(triples)
-        print("file:", file)
-        for k,v in found.items():
-            print(*v, sep="\n")
-            index[k].extend(v)
-            
+
+        for t in triples:
+            index[t.A()].append(t)
+            print(t, sep="\n")
+
     return index
+
+
+def write_index(index, output_file):
+    with open(output_file, 'wb') as output:
+        pickle.dump(index, output)
+
+def read_index(filename):
+    with open(filename, 'rb') as data:
+        index = pickle.load(data)
+        return index

@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import collections
 from build_index import get_index
 from triple import Triple
 
