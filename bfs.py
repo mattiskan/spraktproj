@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-import collections
-import relations
+from build_index import get_index
 from triple import Triple
 
 
@@ -33,16 +32,6 @@ def bfs(start, goal, triples):
     return result
 
 
-
-def build_index(triples):
-    index = collections.defaultdict(list)
-
-    for t in triples:
-        index[t.A()].append(t)
-
-    return index
-
-
 def print_results(results):
     print()
     for result in results:
@@ -55,16 +44,7 @@ def print_results(results):
 
 
 def main():
-    files = [ "testData.txt", "obama.txt", "budget.txt"]
-
-    index = collections.defaultdict(list)
-    for file in files:
-        triples = relations.parseFile(file)
-        found = build_index(triples)
-        print("file:", file)
-        for k,v in found.items():
-            print(*v, sep="\n")
-            index[k].extend(v)
+    index = get_index("index.data")
 
     results = bfs('Obama', 'GAB', index)
     
