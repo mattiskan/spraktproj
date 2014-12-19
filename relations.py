@@ -24,7 +24,7 @@ def getRelations(sentences):
                 A = [subtree.leaves()[0]]
                 R = subtree.leaves()[1:-1]
                 B = [subtree.leaves()[-1]]
-                results.append(Triple(A,R,B))
+                results.append(Triple(A,R,B,tree))
     return results
 
 def parseFile(fileName, n=1500):
@@ -32,8 +32,10 @@ def parseFile(fileName, n=1500):
     f = open(fileName, 'rU')
     for line in f:
         sents.append(nltk.word_tokenize(line))
-    #sents = [s for s in gutenberg.sents('carroll-alice.txt')[:n]]
     results = getRelations(sents)
     
 
     return results
+
+def getSynset(word):
+    
