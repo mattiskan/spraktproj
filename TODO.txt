@@ -1,0 +1,8 @@
+TODO:
+	- chunking in two levels NP:{} VP: {} Relation: {<NP><VP><NP>}
+	- Get rid of punctuation-garbage in NP's
+	- How to refine and get the kind of NP's we want?
+	- frequency of NP-entities among relations. Show top frequent entities.
+	- synsets for NP's (hard?)
+	- Frames for verbs to give more information about NP's?
+	- Verb tenses? Past, progressive et.c.? 
