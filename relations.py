@@ -16,3 +16,14 @@ def getRelations(sentences):
                 B = [subtree.leaves()[-1]]
                 results.append(Triple(A,R,B))
     return results
+
+def parseFile(fileName, n=1500):
+    sents = []
+    f = open(fileName, 'rU')
+    for line in f:
+        sents.append(nltk.word_tokenize(line))
+    #sents = [s for s in gutenberg.sents('carroll-alice.txt')[:n]]
+    results = getRelations(sents)
+    
+
+    return results

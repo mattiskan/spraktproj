@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import collections
 import relations
-from tester import testRelations
 from triple import Triple
 
 
@@ -45,7 +44,7 @@ def build_index(triples):
 
 
 def main():
-    triples = testRelations()
+    triples = relations.parseFile("testData.txt")
     
     index = build_index(triples)
 
@@ -53,7 +52,8 @@ def main():
 
     for result in results:
         for path in result:
-            print(path, "-> ", end="")
+            print(path, end="")
+            if path != result[-1]: print(" -> ", end="")
         print()
 
 
