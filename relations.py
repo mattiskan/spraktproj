@@ -4,9 +4,9 @@ from triple import *
 #grammar = "Relation: {<N.*><V.*><NNP>}"
 
 grammar = r"""
-  NP: {<DT>?<JJ>?<NN.*>+}          # Chunk sequences of DT, JJ, NN
+  NP: {<NN.*>+}          # Chunk sequences of DT, JJ, NN
   VB: {<VB.*>} 
-  REL: {<NP><VB><NP>}           # Chunk NP, VP
+  REL: {<NP><VB><DT>?<NP>}           # Chunk NP, VP
   """
 
 cp = nltk.RegexpParser(grammar,loop=2)
@@ -22,10 +22,12 @@ def getRelations(sentences):
         tree = cp.parse(sent)
         for subtree in tree.subtrees():
             if subtree.label() == 'REL':
+
                 subtrees = list(subtree.subtrees())
                 A = subtrees[1].leaves()
                 R = subtrees[2].leaves()
-                B = subtrees[3].leaves()
+                B = subtrees[-1].leaves()
+
                 results.append(Triple(A,R,B,tree))
     return results
 

@@ -16,6 +16,7 @@ def get_index(filename):
 
 
 def build_index():
+    print("no previous index found, building...", end="\n\n")
     index = collections.defaultdict(list)
 
     for file in files:
